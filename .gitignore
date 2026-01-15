@@ -46,3 +46,6 @@ yarn.lock
 # OS
 Thumbs.db
 .DS_Store
+
+# Generated
+dashboard.html
