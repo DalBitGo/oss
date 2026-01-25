@@ -1,14 +1,7 @@
 # OSS 분석 & 재구현 연구소
 
 > 오픈소스를 분석하고, 배우고, 나만의 방식으로 다시 만든다.
-
-## 핵심 원칙
-
-```
-오픈소스 선정 → 분석/문서화 → 코드 공부 → 나만의 구현
-```
-
-이것만 반복한다. 복잡하게 생각하지 않는다.
+> **목표**: 커리어 Gap 해소에 직접 도움이 되는 OSS 우선 분석
 
 ---
 
@@ -16,17 +9,55 @@
 
 ```
 oss/
-├── _templates/              # 분석 템플릿
-│   ├── ANALYSIS_TEMPLATE.md # 분석 문서 양식
-│   └── PROJECT_STRUCTURE.md # 워크플로우 가이드
+├── A_streaming/        ⭐ Kafka, 스트리밍 (Gap 2순위)
+│   ├── aiokafka/       ✅ 분석 완료
+│   ├── bytewax/        ⬜ 1순위 분석 예정
+│   └── arroyo/         ⬜ 3순위
 │
-├── [프로젝트명]/
-│   ├── original/            # 원본 코드 (git clone)
-│   ├── docs/                # 분석 문서
-│   │   └── 00_SUMMARY.md    # 전체 요약 (필수)
-│   └── my-impl/             # 내가 다시 만든 버전
+├── B_batch/            ⭐⭐ Spark, 배치 처리 (Gap 1순위)
+│   ├── polars/         ⬜ 2순위 분석 예정
+│   └── dbt-core/       ⬜ 4순위
 │
-└── CANDIDATES.md            # 분석 후보 목록
+├── C_data-lake/        ⭐⭐ Delta Lake, Iceberg (Gap 1순위 연계)
+│   └── delta-rs/       ⬜ 1순위 분석 예정
+│
+├── E_data-quality/     데이터 품질
+│   └── great-expectations/ ⬜ 5순위
+│
+├── F_etc/              기타 (LLM, 크롤링 등 - 커리어 연관 낮음)
+│   ├── vanna/          ✅ 분석 완료
+│   ├── claude-agent-sdk-python/ ✅ 분석 완료
+│   └── ... (7개 더)
+│
+├── CLAUDE.md           방향 가이드
+├── README.md           ← 지금 보는 파일
+├── CANDIDATES.md       분석 후보 상세 목록
+└── _templates/         분석 템플릿
+```
+
+---
+
+## 현재 상태
+
+| 카테고리 | 프로젝트 수 | 분석 완료 | 커리어 Gap |
+|----------|:-----------:|:---------:|:----------:|
+| **A_streaming** | 3 | 2 (aiokafka, bytewax✅) | 2순위 |
+| **B_batch** | 2 | 0 | **1순위** |
+| **C_data-lake** | 1 | 0 | **1순위** |
+| **E_data-quality** | 1 | 0 | 중간 |
+| **F_etc** | 9 | 9 | 낮음 |
+
+---
+
+## 다음 할 일
+
+```
+분석 순서:
+1. ✅ A_streaming/bytewax  → 완료! (L3 심층 분석)
+2. C_data-lake/delta-rs    → Delta Lake (Phase 3 저장소)
+3. B_batch/polars          → 고성능 DataFrame
+4. B_batch/dbt-core        → 데이터 변환
+5. A_streaming/arroyo      → 분산 스트리밍
 ```
 
 ---
@@ -34,74 +65,28 @@ oss/
 ## 워크플로우
 
 ### 1. 프로젝트 선정
-- `CANDIDATES.md`에서 관심 있는 프로젝트 선택
-- 또는 새 프로젝트 추가
+우선순위: A, B, C 카테고리 먼저
 
-### 2. 원본 클론
+### 2. 분석 문서 작성
 ```bash
-cd [프로젝트명]
-git clone [repo-url] original
+# 각 프로젝트의 docs/00_SUMMARY.md 작성
 ```
 
-### 3. 분석 문서 작성
-```bash
-cp _templates/ANALYSIS_TEMPLATE.md [프로젝트명]/docs/00_SUMMARY.md
-```
+### 3. 핵심 패턴 학습
+- 아키텍처, 데이터 흐름, 설계 결정
 
-분석하면서 채워나가기:
-- 서비스 의도 (왜 만들었나)
-- 아키텍처 (어떻게 구성했나)
-- 기술 스택 (무엇을 썼나)
-- 핵심 구현 (어떻게 만들었나)
-- 개발자 고민 (왜 이렇게 결정했나)
-
-### 4. 코드 읽기
-- `docs/`에 정리한 내용을 바탕으로 실제 코드 탐색
-- 이해한 내용은 docs/에 추가 문서로 정리
-- 모듈별로 `[모듈명].md` 파일 생성
-
-### 5. 나만의 구현
-- `my-impl/`에 직접 구현
-- 전체 클론 vs 핵심만 vs 변형 선택
-- 배운 패턴을 적용하되, 나만의 개선 추가
-
----
-
-## 분석할 때 기록할 것
-
-1. **서비스 의도**: 무슨 문제를 해결하나?
-2. **아키텍처**: 전체 구조가 어떻게 되나?
-3. **기술 스택**: 왜 이 기술을 선택했나?
-4. **핵심 구현**: 가장 중요한 로직은?
-5. **개발자 고민**: Issues/PR에서 발견한 결정 과정
-6. **배운 점**: 내가 얻어간 것
-7. **my-impl 계획**: 뭘 만들 것인가
-
----
-
-## 현재 프로젝트 상태
-
-| 프로젝트 | 원본 | 분석 | 구현 |
-|---------|------|------|------|
-| aiokafka | ✅ | ✅ | ⬜ |
-| vanna | ✅ | ✅ | ⬜ |
-| claude-agent-sdk-python | ⬜ | ✅ | ⬜ |
-| chatterbox | ⬜ | ⬜ | ⬜ |
-| cocoindex | ⬜ | ⬜ | ⬜ |
-| crawl4ai | ⬜ | ⬜ | ⬜ |
-| dify | ⬜ | ⬜ | ⬜ |
-| exo | ⬜ | ⬜ | ⬜ |
-| mini-sglang | ⬜ | ⬜ | ⬜ |
-| unsloth | ⬜ | ⬜ | ⬜ |
+### 4. 프로젝트 적용
+- realtime-crypto-pipeline에 배운 패턴 적용
 
 ---
 
 ## 새 세션 시작할 때
 
-이 파일(`README.md`)을 먼저 읽고 현재 상태를 파악한 후 작업을 시작한다.
-
 ```bash
-# 현재 상태 확인
-cat /home/junhyun/oss/README.md
-ls -la /home/junhyun/oss/
+cat /home/junhyun/oss/CLAUDE.md
+ls /home/junhyun/oss/
 ```
+
+---
+
+*마지막 업데이트: 2026-01-25*

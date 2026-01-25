@@ -246,4 +246,12 @@ cat >> dashboard.html << EOF
 EOF
 
 echo "✅ dashboard.html 생성 완료"
-echo "👉 브라우저에서 열기: file:///home/junhyun/oss/dashboard.html"
+
+# 브라우저에서 열기 (--open 옵션)
+if [ "$1" = "--open" ] || [ "$1" = "-o" ]; then
+    win_path=$(wslpath -w /home/junhyun/oss/dashboard.html)
+    powershell.exe -Command "Start-Process '$win_path'" 2>/dev/null &
+    echo "👉 브라우저에서 열림"
+else
+    echo "👉 브라우저에서 열기: ./generate-dashboard.sh --open"
+fi
