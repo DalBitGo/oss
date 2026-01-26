@@ -1,0 +1,27 @@
+[submodule "A_streaming/arroyo/original"]
+	path = A_streaming/arroyo/original
+	url = https://github.com/ArroyoSystems/arroyo.git
+[submodule "A_streaming/bytewax/original"]
+	path = A_streaming/bytewax/original
+	url = https://github.com/bytewax/bytewax.git
+[submodule "B_batch/dbt-core/original"]
+	path = B_batch/dbt-core/original
+	url = https://github.com/dbt-labs/dbt-core.git
+[submodule "B_batch/polars/original"]
+	path = B_batch/polars/original
+	url = https://github.com/pola-rs/polars.git
+[submodule "C_data-lake/delta-rs/original"]
+	path = C_data-lake/delta-rs/original
+	url = https://github.com/delta-io/delta-rs.git
+[submodule "E_data-quality/great-expectations/original"]
+	path = E_data-quality/great-expectations/original
+	url = https://github.com/great-expectations/great_expectations.git
+[submodule "F_etc/crawl4ai/original"]
+	path = F_etc/crawl4ai/original
+	url = https://github.com/unclecode/crawl4ai.git
+[submodule "A_streaming/aiokafka/original"]
+	path = A_streaming/aiokafka/original
+	url = https://github.com/aio-libs/aiokafka.git
+[submodule "F_etc/vanna/original"]
+	path = F_etc/vanna/original
+	url = https://github.com/vanna-ai/vanna.git
