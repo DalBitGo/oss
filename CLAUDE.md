@@ -820,6 +820,8 @@ docs/
 
 ## L4: Implementation (3-5일)
 
+> **핵심**: projects 개발 방법론을 따른다! (문서 먼저, 코드 나중)
+
 ### 목표
 ```
 핵심 기능을 직접 구현할 수 있는가?
@@ -838,15 +840,111 @@ docs/
    → 포트폴리오에 가장 좋음
 ```
 
-### my-impl 폴더 구조
+---
+
+### 📘 개발 방법론 참조
+
+> **my-impl 구현 시 projects의 공통 개발 방법론을 따른다**
+
+**참조 문서**:
+- `/home/junhyun/projects/CLAUDE.md` - 공통 개발 방법론
+- `/home/junhyun/projects/_templates/` - 템플릿 (버그, 기능, PRD)
+
+### 핵심 원칙: 문서 먼저, 코드 나중
+
+```
+목적 (Why) → 기능 (What) → 설계 (How) → 코드 (Implementation)
+```
+
+### my-impl 문서 계층
+
+```
+레벨 1: README.md (PRD 역할)
+    "이 구현이 뭐하는 건지" - 목적, 범위, 원본과 차이점
+        ↓
+레벨 2: docs/요구사항.md
+    "어떤 기능이 필요한지" - 핵심 요구사항
+        ↓
+레벨 3: docs/설계.md
+    "어떻게 구현할지" - 아키텍처, 데이터 흐름
+        ↓
+코드 구현 (src/)
+```
+
+### 4단계 개발 프로세스
+
+```
+Phase 1: 요구사항 정의
+    - 원본 OSS에서 뭘 가져올 것인가?
+    - 어떤 부분을 개선/변형할 것인가?
+    - 수락 기준은?
+
+Phase 2: 설계
+    - 아키텍처 다이어그램
+    - 핵심 컴포넌트
+    - 데이터 흐름
+
+Phase 3: 구현
+    - 코드 작성
+    - 테스트 작성
+
+Phase 4: 검증 및 비교
+    - 원본과 비교 (COMPARISON.md)
+    - 성능 벤치마크 (선택)
+    - 학습 포인트 정리
+```
+
+### my-impl 폴더 구조 (표준)
+
 ```
 my-impl/
-├── README.md           # 구현 목표, 원본과 차이점
+├── README.md               # PRD - 목적, 범위, 원본과 차이점
+├── docs/
+│   ├── 요구사항.md          # 핵심 요구사항, 수락 기준
+│   ├── 설계.md             # 아키텍처, 데이터 흐름
+│   └── COMPARISON.md       # 원본 vs 내 구현 비교
 ├── src/
 │   └── ...
-├── tests/
-│   └── ...
-└── COMPARISON.md       # 원본 vs 내 구현 비교
+└── tests/
+    └── ...
+```
+
+### my-impl README.md 템플릿
+
+```markdown
+# {프로젝트명} - my-impl
+
+## 1. 개요
+- **원본**: {OSS 이름} ({GitHub URL})
+- **목적**: {왜 직접 구현하는가}
+- **범위**: {전체 클론 / 핵심만 / 변형}
+
+## 2. 원본과의 차이점
+| 항목 | 원본 | 내 구현 |
+|------|------|---------|
+| {항목1} | {원본 방식} | {내 방식} |
+
+## 3. 핵심 학습 목표
+- [ ] {학습 목표 1}
+- [ ] {학습 목표 2}
+
+## 4. 실행 방법
+{실행 명령어}
+
+## 5. 테스트
+{테스트 명령어}
+```
+
+### 구현 시 체크리스트
+
+```
+□ README.md 작성 (목적, 범위 명확화)
+□ docs/요구사항.md 작성
+□ docs/설계.md 작성 (다이어그램 포함)
+□ 코드 구현
+□ 테스트 작성
+□ COMPARISON.md 작성 (원본과 비교)
+□ 프로젝트 CLAUDE.md 업데이트 (L4 완료 표시)
 ```
 
 ---
@@ -1049,10 +1147,13 @@ oss/
 
 ### L4 완료 기준
 ```
-□ my-impl/ 코드 작성
-□ 테스트 코드 포함
-□ 원본과 비교 문서
-□ 개선점/차이점 정리
+□ README.md 작성 (목적, 범위, 원본과 차이점)
+□ docs/요구사항.md 작성
+□ docs/설계.md 작성 (다이어그램 포함)
+□ src/ 코드 구현
+□ tests/ 테스트 코드 포함
+□ docs/COMPARISON.md 작성 (원본과 비교, 성능, 학습 포인트)
+□ 프로젝트 CLAUDE.md 업데이트 (L4 완료 표시)
 ```
 
 ---
@@ -1071,8 +1172,12 @@ oss/
 
 ## 참고
 
+### 개발 방법론 (my-impl 구현 시 필수 참조)
+- `/home/junhyun/projects/CLAUDE.md` - **공통 개발 방법론** (문서 먼저, 4단계 프로세스)
+- `/home/junhyun/projects/_templates/` - 템플릿 (버그, 기능, PRD)
+
 ### 프로젝트 연계
-- `/home/junhyun/projects/realtime-crypto-pipeline/CLAUDE.md` - 프로젝트 작업 지침
+- `/home/junhyun/projects/A_data-engineering/realtime-crypto-pipeline/CLAUDE.md` - 프로젝트 작업 지침
 - `/home/junhyun/career-hub/SKILL_GAP_ANALYSIS.md` - Gap 스킬 상세
 
 ### 학습 자료
